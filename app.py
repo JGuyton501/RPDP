@@ -1,8 +1,8 @@
-import os
+import os,sys
 from flask import Flask, render_template
 #from flask_sqlalchemy import SQLAlchemy
-from api.models.testprogram import User
-
+#from api.models.testprogram import User
+sys.path.append('./api/models/testprogram.py')
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
