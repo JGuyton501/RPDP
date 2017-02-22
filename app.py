@@ -1,13 +1,13 @@
 import os
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from api.models import testprogram
+#from flask_sqlalchemy import SQLAlchemy
+from api.models.testprogram import User
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
-db = SQLAlchemy(app)
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
+#db = SQLAlchemy(app)
 
 
 @app.route('/')
@@ -21,10 +21,6 @@ def signup():
 @app.route('/login')
 def login():
     return render_template('login.html')
-
-@app.route('/submit')
-def submit():
-    return render_template('submit_program.html')
 
 if __name__ == '__main__':
     app.run()
