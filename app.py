@@ -24,7 +24,7 @@ def login():
 	
 @app.route('/submit')
 def submit():
-	return render_template('submit_program.html')
+    return render_template('submit_program.html')
 
 if __name__ == '__main__':
     app.run()
