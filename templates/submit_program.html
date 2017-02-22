@@ -14,33 +14,57 @@
         <div class="row">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s3">
+                    <div class="input-field col s5">
                         <input id="name" type="text" class="validate">
-                        <label for="name">Name</label>
+                        <label for="name">Program Name</label>
                     </div>
-                    <div class="input-field col s3">
-                        <input id="date" type="date" class="datepicker">
-                        <label for="date">Date</label>
-                    <div class="input-field col s3">
-                        <input id="time" type="time" class="validate">
-                        <label for="time">Time</label>
-                    </div>
-                    <div class="input-field col s3">
+                    <div class="input-field col s4">
                         <input id="location" type="text" class="validate">
                         <label for="location">Location</label>
                     </div>
+                    <div class="col s3">
+                      <br>
+                      <div class="switch">
+                        <label>
+                          Off Campus
+                          <input type="checkbox">
+                          <span class="lever"></span>
+                          On Campus
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                      <input id="date" type="date" class="datepicker">
+                      <label for="date">Date</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input id="time" type="text">
+                      <label for="time">Time</label>
+                  </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="description" type="text" class="materialize-textarea">
+                        <textarea id="description" class="materialize-textarea"></textarea>
                         <label for="description">Description</label>
                     </div>
                 </div>
                 <a class="waves-effect waves-light btn" id="loginSubmit">Submit</a>
-                <input type="reset">
+                <button class="btn waves-effect waves-light" type="reset" name="action">Reset</button>
+                <!-- <input type="reset"> -->
             </form>
         </div>
     </div>
+    <div class="divider"></div>
+    {% include 'footer.html' %}
 </body>
+
+<script type="text/javascript">
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 1 // Creates a dropdown of 2 years to control year
+  });
+</script>
 
 </html>

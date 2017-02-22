@@ -1,8 +1,8 @@
-import os,sys
+import os
 from flask import Flask, render_template
 #from flask_sqlalchemy import SQLAlchemy
 #from api.models.testprogram import User
-sys.path.append('./api/models/testprogram.py')
+
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
@@ -21,6 +21,10 @@ def signup():
 @app.route('/login')
 def login():
     return render_template('login.html')
+	
+@app.route('/submit')
+def submit():
+    return render_template('submit_program.html')
 
 if __name__ == '__main__':
     app.run()
