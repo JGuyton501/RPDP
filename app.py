@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template
 #from flask_sqlalchemy import SQLAlchemy
-from api.models.testprogram import User
+#from api.models.testprogram import User
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
