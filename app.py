@@ -22,5 +22,9 @@ def signup():
 def login():
     return render_template('login.html')
 
+@app.route('/submit')
+def submit():
+    return render_template('submit_program.html')
+
 if __name__ == '__main__':
     app.run()
