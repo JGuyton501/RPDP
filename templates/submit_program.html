@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'link.html' %}
+
+    <title>Submit Program</title>
+    {% include 'navbar.html' %}
+</head>
+
+<body>
+    <div class="container">
+        <h3>Submit Program</h3>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s3">
+                        <input id="name" type="text" class="validate">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="date" type="date" class="datepicker">
+                        <label for="date">Date</label>
+                    <div class="input-field col s3">
+                        <input id="time" type="time" class="validate">
+                        <label for="time">Time</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="location" type="text" class="validate">
+                        <label for="location">Location</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="description" type="text" class="materialize-textarea">
+                        <label for="description">Description</label>
+                    </div>
+                </div>
+                <a class="waves-effect waves-light btn" id="loginSubmit">Submit</a>
+                <input type="reset">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
