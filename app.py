@@ -1,4 +1,5 @@
-from flask import Flask, render_template, os
+import os
+from flask import Flask, render_template
 from flask.ext.sqlalchemy import sqlalchemy
 
 app = Flask(__name__)
