@@ -1,17 +1,56 @@
 import os
-from flask import Flask, render_template
-#from flask_sqlalchemy import SQLAlchemy
-#from api.models.testprogram import User
+from flask import Flask, render_template, request, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+# from api.models.testprogram import User
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.debug = True
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
-#db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
+db = SQLAlchemy(app)
+
+
+# registering users into database
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(80))
+    last_name = db.Column(db.String(80))
+    email = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(80))
+
+    def __init__(self, first_name, last_name, email, password):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.password = password
+
+    def __repr__(self):
+        return '<Name %r>' % self.email
+
+ # adding programs
+ # change the types later
+class Program(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    program_name = db.Column(db.String(80))
+    location = db.Column(db.String(80))
+    date = db.Column(db.String(30))
+    time = db.Column(db.String(10))
+    description = db.Column(db.String(500))
+
+    def __init__(self, program_name, location, date, time, description):
+        self.program_name = program_name
+        self.location = location
+        self.date = date
+        self.time = time
+        self.description = description
+
+    def __repr__(self):
+        return '<Program Name %r>' % self.location
 
 
 @app.route('/')
-def hello():
+def home():
     return render_template('home.html')
 
 @app.route('/signup')
@@ -25,6 +64,40 @@ def login():
 @app.route('/submit')
 def submit():
     return render_template('submit_program.html')
+
+@app.route('/programs')
+def programs():
+	allPrograms = Program.query.all()
+	return render_template('programs_list.html', allPrograms = allPrograms)
+
+# post new user
+@app.route('/post_user', methods=['POST'])
+def post_user():
+	user = User(
+		request.form['first_name'],
+		request.form['last_name'],
+		request.form['email'],
+		request.form['password']
+		)
+	db.session.add(user)
+	db.session.commit()
+	return redirect(url_for('home'))
+
+# post new program
+@app.route('/post_program', methods=['POST'])
+def post_program():
+	program = Program(
+		request.form['program_name'],
+		request.form['location'],
+		request.form['date'],
+		request.form['time'],
+		request.form['description']
+		)
+	db.session.add(program)
+	db.session.commit()
+	return redirect(url_for('home'))
+
+    
 
 if __name__ == '__main__':
     app.run()
