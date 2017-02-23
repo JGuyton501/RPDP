@@ -1,11 +1,10 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-# from api.models.testprogram import User
 
 app = Flask(__name__)
 app.debug = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
 db = SQLAlchemy(app)
