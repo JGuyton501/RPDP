@@ -12,35 +12,45 @@
     <div class="container">
         <h3>Submit Program</h3>
         <div class="row">
-            <form class="col s12">
+            <form class="col s12" method="post" action="/post_program">
                 <div class="row">
-                    <div class="input-field col s3">
-                        <input id="name" type="text" class="validate">
-                        <label for="name">Name</label>
+                    <div class="input-field col s6">
+                        <input id="program_name" name="program_name" type="text" class="validate">
+                        <label for="program_name">Program Name</label>
                     </div>
-                    <div class="input-field col s3">
-                        <input id="date" type="date" class="datepicker">
-                        <label for="date">Date</label>
-                    <div class="input-field col s3">
-                        <input id="time" type="time" class="validate">
-                        <label for="time">Time</label>
-                    </div>
-                    <div class="input-field col s3">
-                        <input id="location" type="text" class="validate">
+                    <div class="input-field col s6">
+                        <input id="location" name="location" type="text" class="validate">
                         <label for="location">Location</label>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="input-field col s6">
+                        <input id="date" name="date" type="text" class="validate">
+                        <label for="date">Date</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="time" name="time" type="text" class="validate">
+                        <label for="time">Time</label>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s12">
-                        <input id="description" type="text" class="materialize-textarea">
+                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
                         <label for="description">Description</label>
                     </div>
                 </div>
-                <a class="waves-effect waves-light btn" id="loginSubmit">Submit</a>
-                <input type="reset">
+                <input type="submit" name="submit" class="waves-effect waves-light btn" />
+                <button class="btn waves-effect waves-light" type="reset" name="/submit">Reset</button>
             </form>
         </div>
     </div>
 </body>
+
+<script type="text/javascript">
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 1 // Creates a dropdown of 2 years to control year
+  });
+</script>
 
 </html>
