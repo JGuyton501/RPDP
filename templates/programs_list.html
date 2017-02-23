@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    {% include 'link.html' %}
+
+    <title>Login</title>
+    {% include 'navbar.html' %}
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+        {% for program in allPrograms %}
+        <div class="col s12 m6">
+          <div class="card green darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">{{program.program_name}}</span>
+              <p>{{program.location}}</p>
+              <p>{{program.description}}</p>
+            </div>
+            <div class="card-action">
+              <p>{{program.date}} - {{program.time}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</body>
+
+</html>

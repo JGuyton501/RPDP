@@ -1,4 +1,6 @@
 from app import db
+user = Module(__name__)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
