@@ -1,4 +1,5 @@
-import os
+from __future__ import print_function
+import os,sys
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 
@@ -6,7 +7,8 @@ app = Flask(__name__)
 app.debug = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/jesse'
 db = SQLAlchemy(app)
 
 
@@ -59,7 +61,7 @@ def signup():
 @app.route('/login')
 def login():
     return render_template('login.html')
-	
+
 @app.route('/submit')
 def submit():
     return render_template('submit_program.html')
@@ -85,18 +87,29 @@ def post_user():
 # post new program
 @app.route('/post_program', methods=['POST'])
 def post_program():
-	program = Program(
-		request.form['program_name'],
-		request.form['location'],
-		request.form['date'],
-		request.form['time'],
-		request.form['description']
-		)
-	db.session.add(program)
-	db.session.commit()
-	return redirect(url_for('home'))
+    program = Program(
+        request.form['program_name'],
+        request.form['location'],
+        request.form['date'],
+        request.form['time'],
+        request.form['description']
+    )
+    db.session.add(program)
+    db.session.commit()
+    return redirect(url_for('home'))
 
-    
+#check login credentials
+@app.route('/post_login', methods=['POST'])
+def post_login():
+    print('getting to verify_login.', file=sys.stderr)
+    form_email = request.form['email']
+    form_pass = request.form['password']
+    check = User.query.filter(User.email==form_email and User.password==form_pass).first()
+    if check is None:
+        print('Invalid username or password.',file=sys.stderr)
+    else:
+        print('Logged in successfully.',file=sys.stderr)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run()
