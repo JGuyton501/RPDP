@@ -40,7 +40,7 @@ def post_user():
 		)
 	db.session.add(user)
 	db.session.commit()
-	return redirect(url_for('main/home'))
+	return redirect(url_for('home'))
 
 # post new program
 @app.route('/post_program', methods=['POST'])
@@ -54,7 +54,7 @@ def post_program():
 		)
 	db.session.add(program)
 	db.session.commit()
-	return redirect(url_for('main/home'))
+	return redirect(url_for('home'))
 # query programs 
 @app.route('/programs')
 def programs():
