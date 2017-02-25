@@ -6,11 +6,11 @@ app = Flask(__name__)
 app.debug = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/postgres'
 
 #import modules after init app 
-import modules	
 db = SQLAlchemy(app) 
+import modules	
 
 @app.route('/')
 def home():
