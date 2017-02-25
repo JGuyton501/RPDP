@@ -10,6 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 #import modules after init app 
 import modules	
+db = SQLAlchemy(app) 
 
 @app.route('/')
 def home():
