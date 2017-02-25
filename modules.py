@@ -1,5 +1,4 @@
 from app import *
-db = SQLAlchemy(app) 
 
 # registering users into database
 class User(db.Model):
