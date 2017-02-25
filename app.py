@@ -6,73 +6,32 @@ app = Flask(__name__)
 app.debug = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
 
-
-# registering users into database
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80))
-    last_name = db.Column(db.String(80))
-    email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(80))
-
-    def __init__(self, first_name, last_name, email, password):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.password = password
-
-    def __repr__(self):
-        return '<Name %r>' % self.email
-
- # adding programs
- # change the types later
-class Program(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    program_name = db.Column(db.String(80))
-    location = db.Column(db.String(80))
-    date = db.Column(db.String(30))
-    time = db.Column(db.String(10))
-    description = db.Column(db.String(500))
-
-    def __init__(self, program_name, location, date, time, description):
-        self.program_name = program_name
-        self.location = location
-        self.date = date
-        self.time = time
-        self.description = description
-
-    def __repr__(self):
-        return '<Program Name %r>' % self.location
-
+#import modules after init app 
+import modules	
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('main/home.html')
 
 @app.route('/signup')
 def signup():
-    return render_template('signup.html')
+    return render_template('main/signup.html')
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('main/login.html')
 	
 @app.route('/submit')
 def submit():
-    return render_template('submit_program.html')
+    return render_template('user/submit_program.html')
 
-@app.route('/programs')
-def programs():
-	allPrograms = Program.query.all()
-	return render_template('programs_list.html', allPrograms = allPrograms)
-
+# modules below 
 # post new user
 @app.route('/post_user', methods=['POST'])
 def post_user():
-	user = User(
+	user = modules.User(
 		request.form['first_name'],
 		request.form['last_name'],
 		request.form['email'],
@@ -80,12 +39,12 @@ def post_user():
 		)
 	db.session.add(user)
 	db.session.commit()
-	return redirect(url_for('home'))
+	return redirect(url_for('main/home'))
 
 # post new program
 @app.route('/post_program', methods=['POST'])
 def post_program():
-	program = Program(
+	program = modules.Program(
 		request.form['program_name'],
 		request.form['location'],
 		request.form['date'],
@@ -94,9 +53,13 @@ def post_program():
 		)
 	db.session.add(program)
 	db.session.commit()
-	return redirect(url_for('home'))
+	return redirect(url_for('main/home'))
+# query programs 
+@app.route('/programs')
+def programs():
+	allPrograms = modules.Program.query.all()
+	return render_template('user/programs_list.html', allPrograms = allPrograms)
 
-    
 
 if __name__ == '__main__':
     app.run()
