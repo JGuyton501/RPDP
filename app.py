@@ -1,4 +1,5 @@
-import os
+from __future__ import print_function
+import os,sys
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 
@@ -55,12 +56,24 @@ def post_program():
 	db.session.add(program)
 	db.session.commit()
 	return redirect(url_for('home'))
+
 # query programs 
 @app.route('/programs')
 def programs():
 	allPrograms = modules.Program.query.all()
 	return render_template('user/programs_list.html', allPrograms = allPrograms)
 
+@app.route('/post_login', methods=['POST'])
+def post_login():
+	print('getting to verify_login.', file=sys.stderr)
+	form_email = request.form['email']
+	form_pass = request.form['password']
+	check = modules.User.query.filter(modules.User.email==form_email and modules.User.password==form_pass).first()
+	if check is None:
+		print('Invalid username or password.',file=sys.stderr)
+	else:
+		print('Logged in successfully.',file=sys.stderr)
+	return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run()
