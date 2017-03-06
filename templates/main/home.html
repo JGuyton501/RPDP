@@ -7,26 +7,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="RPDP CMS">
-    <meta name="author" content="Justin Guyton, Vish Reddy, Jesse Huang, Danny Weiner"> {% include 'main/link.html' %}
+    <meta name="author" content="Justin Guyton, Vish Reddy, Jesse Huang, Danny Weiner">
+    <link rel="stylesheet" href="../../static/css/home.css"> {% include 'main/link.html' %}
 
     <title>Home -- RPDP</title>
     {% include 'main/navbar.html' %}
 </head>
 
 <body>
-    <div class="container">
-        <h1>Welcome to RPDP! This is just the beginning!</h1>
-        <img src="https://wallpaperbrowse.com/media/images/464030.jpg" height="600px" width="1000px" align="center">
+    <!--Landing-->
+    <div class=" view" id="index-banner" style="padding-bottom: 200px; padding-top:200px;">
+        <div class="container">
+            <br>
+            <br>
+            <div class="row center">
+                <h3 class="header col s12 light white-text" style="font-family: bold italic">Modern content management system for Residential Advisors</h3>
+            </div>
+            <div class="row center">
+                <a href="#about" id="download-button" class="btn-large waves-effect waves-light  blue darken-3">Learn More</a>
+                <a href="#features" id="download-button" class="btn-large waves-effect waves-light  blue darken-3">Features</a>
+            </div>
+
+        </div>
+    </div>
+    <!--/.Mask-->
+
+    <!-- About-->
+    <div class="about">
+        <div class="container">
+
+            <div class="divider-new">
+                <h4 class="center grey-text text-darken-4">About us</h4>
+            </div>
+
+            <!--Section: About-->
+            <section class="center grey-text text-darken-2" id="about">
+                <p>RAplus+ is a web application to manage programs, archive programs, garner peer/resident feedback, and facilitate staff communication (RCD, AD, etc.). The residential living area at Washington University is divided between multiple Residential Colleges and this application will manage what events, along with floor and res college budgets, are going on on every floor of every rescollege.</p>
+            </section>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+        </div>
     </div>
 
 
-    <div class="container">
+    <!-- Features-->
+    <div class="container grey-text text-darken-2">
+        <!--   Icon Section   -->
+        <div class="container" id="features">
+            <div class="divider-new">
+                <h4 class="center">App Features</h4>
+            </div>
+        </div>
+        <div class="featureList" style="padding-bottom: 75px">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text text-darken-3"><i class="medium material-icons">input</i></h2>
+                        <h5 class="center">Upload Programs</h5>
 
+                        <p class="light">Any given RA can add their program to the website.</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text text-darken-3"><i class="medium material-icons">assessment</i></h2>
+                        <h5 class="center">Track Program Progress</h5>
+
+                        <p class="light">Manage programs that are submitted, approved, or need mprovements.</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text text-darken-3"><i class="medium material-icons">track_changes</i></h2>
+                        <h5 class="center">Log &amp; Manage 1:1's</h5>
+
+                        <p class="light">RAs often log interactions with residents for future reference and support referall.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--   Second row Icon Section   -->
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text text-darken-3"><i class="medium material-icons">work</i></h2>
+                        <h5 class="center">Manage Floor Budgets</h5>
+
+                        <p class="light">Track RA spending and see exactly where the money is going.</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text text-darken-3"><i class="medium material-icons">group</i></h2>
+                        <h5 class="center">Manage Staff</h5>
+
+                        <p class="light">Residential College Directors are able to keep tabs on their staffs.</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center blue-text text-darken-3"><i class="medium material-icons">today</i></h2>
+                        <h5 class="center">Program Calendar</h5>
+
+                        <p class="light">See what's going on in the community around you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="divider"></div>
     {% include 'main/footer.html' %}
-
 
 
 </body>

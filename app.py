@@ -71,9 +71,10 @@ def post_login():
 	check = modules.User.query.filter(modules.User.email==form_email and modules.User.password==form_pass).first()
 	if check is None:
 		print('Invalid username or password.',file=sys.stderr)
+		return redirect(url_for('home'))
 	else:
 		print('Logged in successfully.',file=sys.stderr)
-	return redirect(url_for('home'))
+		return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run()

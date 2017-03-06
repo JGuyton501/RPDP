@@ -11,10 +11,85 @@
 
 <body>
     <div class="container">
+        <h5>Filter</h5>
+        <div class="filter">
+            <div class="row">
+                <div class="input-field col s6">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+
+                        <option value="1">Apartments North</option>
+                        <option value="2">Apartments South</option>
+                        <option value="3">Brookings</option>
+                        <option value="4">Hitzeman Hurd and Myers</option>
+                        <option value="5">Lee Beaumont</option>
+                        <option value="6">Liggett Koenig </option>
+                        <option value="7">Park and Mudd</option>
+                        <option value="8">Umrath and South Forty House</option>
+
+                        <option value="9">Shanedling Dauten and Rutledge</option>
+                        <option value="11">The Village</option>
+                        <option value="10">Thomas H. Eliot</option>
+                        <option value="12">Wayman Crow</option>
+                        <option value="13">William Greenleaf Eliot </option>
+                    </select>
+                    <label>Residential College</label>
+                </div>
+                <div class="input-field col s6">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">First Year Residents</option>
+                        <option value="2">Sophomore Residents</option>
+                        <option value="3">Junior Residents</option>
+                        <option value="4">Senior Residents</option>
+                        <option value="5">Entire Community</option>
+                    </select>
+                    <label>Student Type</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">1 weeek</option>
+                        <option value="2">2 weeks</option>
+                        <option value="3">3 weeks</option>
+                        <option value="4">1 month</option>
+                        <option value="5">2 month</option>
+                        <option value="6">3+ month</option>
+                    </select>
+                    <label>Time ago</label>
+                </div>
+                <div class="input-field col s6">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <optgroup label="Active Program:">
+                            <option value="1">Floor/Community Program</option>
+                            <option value="2">Off Campus Program</option>
+                            <option value="3">Attend On Campus Event</option>
+                            <option value="4">Attend Off Campus Event</option>
+                            <option value="5">Community Service</option>
+                            <option value="6">Floor/Community Dinner</option>
+                            <option value="7">Game Night</option>
+                            <option value="8">Movie with Discussion</option>
+                            <option value="9">Workshop</option>
+                            <option value="10">Guest Speaker</option>
+                        </optgroup>
+                        <optgroup label="Passive Program:">
+                            <option value="11">Passive Program </option>
+                            <option value="12">Bulletin Board</option>
+                            <option value="13">Potty Press</option>
+                            <option value="14">Newsletter</option>
+                        </optgroup>
+                    </select>
+                    <label>Type of program</label>
+                </div>
+            </div>
+        </div>
         <div class="row">
             {% for program in allPrograms %}
             <div class="col s12 m6">
-                <div class="card green darken-1">
+                <div class="card grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">{{program.program_name}}</span>
                         <p>{{program.location}}</p>
@@ -22,6 +97,7 @@
                     </div>
                     <div class="card-action">
                         <p>{{program.date}} - {{program.time}}</p>
+                        <a href="#">More info</a>
                     </div>
                 </div>
             </div>
@@ -29,6 +105,11 @@
         </div>
     </div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+</script>
 {% include 'main/footer.html' %}
 
 
