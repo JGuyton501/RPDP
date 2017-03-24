@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'main/link.html' %}
+
+    <title>Submit Program</title>
+    {% include 'main/navbar.html' %}
+</head>
+
+<body>
+    <div class="container">
+        <h3>Submit Program</h3>
+        <div class="row">
+            <form class="col s12" method="post" action="/post_program">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="program_name" name="program_name" type="text" class="validate">
+                        <label for="program_name">Program Title</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="program_type" name="program_type" type="text" class="validate">
+                        <label for="program_type">Type</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="date" name="date" type="text" class="validate">
+                        <label for="date">Date</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="time" name="time" type="text" class="validate">
+                        <label for="time">Time</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="location" name="location" type="text" class="validate">
+                        <label for="locaton">Location</label>
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="primary_sponsor" name="primary_sponsor" type="text" class="validate">
+                        <label for="primary_sponsor">Primary Sponsor</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="secondary_sponsor" name="secondary_sponsor" type="text" class="validate">
+                        <label for="secondary_sponsor">Secondary Sponsor</label>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="community" name="community" type="text" class="validate">
+                        <label for="community">Residential Community</label>
+                    <!-- <select id="community">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">Apartments North</option>
+                        <option value="2">Apartments South</option>
+                        <option value="3">Robert S. Brookings</option>
+                        <option value="4">Hitzeman, Hurd, and Myers</option>
+                        <option value="5">Lee/Beaumont</option>
+                        <option value="6">Liggett/Koenig </option>
+                        <option value="7">Park/Mudd</option>
+                        <option value="8">Umrath and South Forty House</option>
+                        <option value="9">Shanedling, Dauten, and Rutledge</option>
+                        <option value="11">The Village</option>
+                        <option value="10">Thomas H. Eliot</option>
+                        <option value="12">Wayman Crow</option>
+                        <option value="13">William Greenleaf Eliot </option>
+                    </select>
+                    <label for="community">Residential College/Community</label> -->
+                    </div>
+                    <div class="input-field col s6">
+                            <input id="organizations_involved" name="organizations_involved" type="text" class="validate">
+                            <label for="organizations_involved">Organizations Involved</label>
+                        <!-- <select id="student_type">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">First Year Residents</option>
+                            <option value="2">Sophomore Residents</option>
+                            <option value="3">Junior Residents</option>
+                            <option value="4">Senior Residents</option>
+                            <option value="5">Entire Community</option>
+                        </select>
+                        <label for="student_type">Primary Student Type</label> -->
+                    </div>                 
+                </div>
+                <div class="row">
+                    <!-- <div class="input-field col s6">
+                        <input id="outcomes" name="outcomes" type="text" class="validate">
+                        <label for="outcomes">Learning Outcomes</label>
+                    </div> -->
+                    <div class="input-field col s6">
+                        <input id="money_spent" name="money_spent" type="text" class="validate">
+                        <label for="money_spent">Money Spent</label>
+                    </div>                    
+                </div>                    
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                        <label for="description">Description</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="implementation" name="implementation" class="materialize-textarea"></textarea>
+                        <label for="implementation">What went well with planning and implementation?</label>
+                    </div>             
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="improvement" name="improvement" class="materialize-textarea"></textarea>
+                        <label for="improvement">What could be improved?</label>
+                    </div>             
+                </div> 
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="assessment" name="assessment" class="materialize-textarea"></textarea>
+                        <label for="assessment">How was the program assessed?</label>
+                    </div>             
+                </div>                
+                <input type="submit" name="submit" class="waves-effect waves-light btn" />
+                <button class="btn waves-effect waves-light" type="reset" name="/submit">Reset</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 1 // Creates a dropdown of 2 years to control year
+    });
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<nav class="blue darken-4">
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">RPDP</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/submit_program">New Program</a></li>
+            <li><a href="/submit_1-1">New 1:1</a></li>
+            <li><a class="waves-effect waves-light btn blue darken-3" href="#login">Login</a></li>
+            <li><a class="waves-effect waves-light btn blue darken-3" href="#signup">Sign Up</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Login Structure -->
+<div id="login" class="modal">
+    <div class="modal-content">
+        <h4>Login</h4>
+        <div class="row">
+            <form class="col s12" method="post" action="/post_login">
+                <div class="row">
+                    <div class="input-field">
+                        <input id="email" name="email" type="email" class="validate">
+                        <label for="email">Email Address</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="password" name="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <input type="submit" class="waves-effect waves-light btn blue darken-3" id="loginSubmit" name="login" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Sign up Modal Structure -->
+<div id="signup" class="modal">
+    <div class="modal-content">
+        <h4>Create an account</h4>
+        <div class="row">
+
+            <form class="col s12" method="post" action="/post_user">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" name="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" name="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="email" name="email" type="email" class="validate">
+                        <label for="email">Email Address</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="password" name="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <input type="submit" name="submit" class="waves-effect waves-light btn blue darken-3" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+</script>
