@@ -25,9 +25,13 @@ def signup():
 def login():
     return render_template('main/login.html')
 	
-@app.route('/submit')
+@app.route('/submit_program')
 def submit():
     return render_template('user/submit_program.html')
+
+@app.route('/submit_1-1')
+def submit():
+    return render_template('user/submit_1-1.html')
 
 # modules below 
 # post new user
