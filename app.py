@@ -2,18 +2,50 @@ from __future__ import print_function
 import os,sys
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
+
 
 app = Flask(__name__)
 app.debug = True
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/jesse'
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['postgresql://postgres@localhost/jesse']
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/jesse'
 db = SQLAlchemy(app)
 
+# app.register_blueprint(login_py)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-# registering users into database
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(int(user_id))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Here we use a class of some kind to represent and validate our
+    # client-side form data. For example, WTForms is a library that will
+    # handle this for us, and we use a custom LoginForm to validate.
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Login and validate the user.
+        # user should be an instance of your `User` class
+        login_user(user)
+
+        flask.flash('Logged in successfully.')
+
+        next = flask.request.args.get('next')
+        # is_safe_url should check if the url is safe for redirects.
+        # See http://flask.pocoo.org/snippets/62/ for an example.
+        if not is_safe_url(next):
+            return flask.abort(400)
+
+        return flask.redirect(next or flask.url_for('index'))
+    return flask.render_template('login.html', form=form)
+
+
+#registering users into database
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
@@ -28,7 +60,31 @@ class User(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.email
+    def __repr__(self):
+        return '<Name %r>' % self.email
+    # def is_authenticated():
+    #     return True
+    # def is_active():
+    #     return True
+    # def is_anonymous():
+    #     return True
+    # def getID():
+    #     return id
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return "You have been logged out"
+
+@app.route('/home')
+@login_required
+def hummus():
+    return "The current user is" + current_user.last_name
  # adding programs
  # change the types later
 class Program(db.Model):
@@ -52,15 +108,18 @@ class Program(db.Model):
 
 @app.route('/')
 def home():
+    user = User.query.filter_by(email='jessehuang@wustl.edu ').first()
+    print(user.first_name, file=sys.stderr)
+    login_user(user)
     return render_template('home.html')
 
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
+# @app.route('/login')
+# def login():
+#     return render_template('login.html')
 
 @app.route('/submit')
 def submit():
