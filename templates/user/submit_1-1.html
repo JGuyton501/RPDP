@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'main/link.html' %}
+
+    <title>Submit One-on-One</title>
+    {% include 'main/navbar.html' %}
+</head>
+
+<body>
+    <div class="container">
+        <h3>Submit One-on-One</h3>
+        <div class="row">
+            <form class="col s12" method="post" action="/post_1-1">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="name" name="name" type="text" class="validate">
+                        <label for="name">Resident Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="resources" name="resources" type="text" class="validate">
+                        <label for="resources">Resources Recommended</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="concerns" name="concerns" type="text" class="validate">
+                        <label for="concerns">Concerns</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="housing" name="housing" type="text" class="validate">
+                        <label for="housing">Housing</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="notes" name="notes" class="materialize-textarea"></textarea>
+                        <label for="notes">Notes</label>
+                    </div>
+                </div>
+                <input type="submit" name="submit" class="waves-effect waves-light btn" />
+                <button class="btn waves-effect waves-light" type="reset" name="/submit">Reset</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 1 // Creates a dropdown of 2 years to control year
+    });
+</script>
+
+</html>
