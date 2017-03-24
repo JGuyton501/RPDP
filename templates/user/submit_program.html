@@ -15,12 +15,12 @@
             <form class="col s12" method="post" action="/post_program">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="title" name="title" type="text" class="validate">
-                        <label for="title">Program Title</label>
+                        <input id="program_name" name="program_name" type="text" class="validate">
+                        <label for="program_name">Program Title</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="type" name="type" type="text" class="validate">
-                        <label for="type">Type</label>
+                        <input id="program_type" name="program_type" type="text" class="validate">
+                        <label for="program_type">Type</label>
                     </div>
                 </div>
                 <div class="row">
@@ -34,28 +34,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12">
                         <input id="location" name="location" type="text" class="validate">
                         <label for="locaton">Location</label>
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="primary_sponsor" name="primary_sponsor" type="text" class="validate">
+                        <label for="primary_sponsor">Primary Sponsor</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="publicity" name="publicity" type="text" class="validate">
-                        <label for="publicity">Advertising and Publicity</label>
+                        <input id="secondary_sponsor" name="secondary_sponsor" type="text" class="validate">
+                        <label for="secondary_sponsor">Secondary Sponsor</label>
                     </div>                    
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="sponsor1" name="sponsor1" type="text" class="validate">
-                        <label for="sponsor1">Primary Sponsor</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input id="sponsor2" name="sponsor2" type="text" class="validate">
-                        <label for="sponsor2">Secondary Sponsor</label>
-                    </div>                    
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                    <select id="community">
+                        <input id="community" name="community" type="text" class="validate">
+                        <label for="community">Residential Community</label>
+                    <!-- <select id="community">
                         <option value="" disabled selected>Choose your option</option>
                         <option value="1">Apartments North</option>
                         <option value="2">Apartments South</option>
@@ -71,28 +69,30 @@
                         <option value="12">Wayman Crow</option>
                         <option value="13">William Greenleaf Eliot </option>
                     </select>
-                    <label for="community">Residential College/Community</label>
-                </div>
-                <div class="input-field col s6">
-                    <select id="student_type">
-                        <option value="" disabled selected>Choose your option</option>
-                        <option value="1">First Year Residents</option>
-                        <option value="2">Sophomore Residents</option>
-                        <option value="3">Junior Residents</option>
-                        <option value="4">Senior Residents</option>
-                        <option value="5">Entire Community</option>
-                    </select>
-                    <label for="student_type">Primary Student Type</label>
-                </div>                 
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="outcomes" name="outcomes" type="text" class="validate">
-                        <label for="outcomes">Learning Outcomes</label>
+                    <label for="community">Residential College/Community</label> -->
                     </div>
                     <div class="input-field col s6">
-                        <input id="budget" name="budget" type="text" class="validate">
-                        <label for="budget">Budget</label>
+                            <input id="organizations_involved" name="organizations_involved" type="text" class="validate">
+                            <label for="organizations_involved">Organizations Involved</label>
+                        <!-- <select id="student_type">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">First Year Residents</option>
+                            <option value="2">Sophomore Residents</option>
+                            <option value="3">Junior Residents</option>
+                            <option value="4">Senior Residents</option>
+                            <option value="5">Entire Community</option>
+                        </select>
+                        <label for="student_type">Primary Student Type</label> -->
+                    </div>                 
+                </div>
+                <div class="row">
+                    <!-- <div class="input-field col s6">
+                        <input id="outcomes" name="outcomes" type="text" class="validate">
+                        <label for="outcomes">Learning Outcomes</label>
+                    </div> -->
+                    <div class="input-field col s6">
+                        <input id="money_spent" name="money_spent" type="text" class="validate">
+                        <label for="money_spent">Money Spent</label>
                     </div>                    
                 </div>                    
                 <div class="row">
@@ -103,14 +103,20 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="wentwell" name="wentwell" class="materialize-textarea"></textarea>
-                        <label for="wentwell">What went well with planning and implementation?</label>
+                        <textarea id="implementation" name="implementation" class="materialize-textarea"></textarea>
+                        <label for="implementation">What went well with planning and implementation?</label>
                     </div>             
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="improvements" name="improvements" class="materialize-textarea"></textarea>
-                        <label for="improvements">What could be improved? How was the program assessed?</label>
+                        <textarea id="improvement" name="improvement" class="materialize-textarea"></textarea>
+                        <label for="improvement">What could be improved?</label>
+                    </div>             
+                </div> 
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="assessment" name="assessment" class="materialize-textarea"></textarea>
+                        <label for="assessment">How was the program assessed?</label>
                     </div>             
                 </div>                
                 <input type="submit" name="submit" class="waves-effect waves-light btn" />

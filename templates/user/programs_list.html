@@ -115,7 +115,7 @@
                     <td>{{program.program_name}}</td>
                     <td>{{program.date}}</td>
                     <td>{{program.location}}</td>
-                    <td>Passive</td>
+                    <td>{{program.program_type}}</td>
                     <td><a href="#{{program.program_name}}_details">More Details</a></td>
                   </tr>
 
@@ -163,7 +163,7 @@
                                         Type:
                                     </div>
                                     <div class="left-box">
-                                        {{program.type}}
+                                        {{program.program_type}}
                                     </div>
                                 </div>
                                 <div class="col s3">
@@ -219,7 +219,7 @@
                         <div id="{{program.id}}_administrative">
                             <div class="row">
                                 <div class="col s12">
-                                    <div class="time">
+                                    <div class="community">
                                         Residential Community:
                                     </div>
                                     <div class="left-box">
@@ -229,7 +229,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s6">
-                                    <div class="budget">
+                                    <div class="money_spent">
                                         Money Spent:
                                     </div>
                                     <div class="left-box">
@@ -237,7 +237,7 @@
                                     </div>
                                 </div>
                                 <div class="col s6">
-                                    <div class="budget">
+                                    <div class="money_spent">
                                         Money Left:
                                     </div>
                                     <div class="left-box">

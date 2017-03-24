@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.debug = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/rpdptest'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/raPlus'
 
 #import modules after init app 
 db = SQLAlchemy(app) 
@@ -30,7 +30,7 @@ def submit():
     return render_template('user/submit_program.html')
 
 @app.route('/submit_1-1')
-def submit():
+def submit1():
     return render_template('user/submit_1-1.html')
 
 # modules below 
@@ -47,15 +47,40 @@ def post_user():
 	db.session.commit()
 	return redirect(url_for('home'))
 
+# post one on one
+@app.route('/submit_1-1', methods=['POST'])
+def post_1():
+	resident1 = modules.OneonOne(
+		request.form['resident_first_name'],
+		request.form['resident_last_name'],
+		request.form['housing'],
+		request.form['room_number'],
+		request.form['recommended_resources'],
+		request.form['concerns'],
+		request.form['notes']
+		)
+	db.session.add(resident1)
+	db.session.commit()
+	return redirect(url_for('home'))
+
 # post new program
 @app.route('/post_program', methods=['POST'])
 def post_program():
 	program = modules.Program(
 		request.form['program_name'],
-		request.form['location'],
+		request.form['program_type'],
 		request.form['date'],
 		request.form['time'],
-		request.form['description']
+		request.form['location'],
+		request.form['primary_sponsor'],
+		request.form['secondary_sponsor'],
+		request.form['community'],
+		request.form['organizations_involved'],
+		request.form['money_spent'],
+		request.form['description'],		
+		request.form['implementation'],
+		request.form['improvement'],
+		request.form['assessment']
 		)
 	db.session.add(program)
 	db.session.commit()
@@ -66,6 +91,12 @@ def post_program():
 def programs():
 	allPrograms = modules.Program.query.all()
 	return render_template('user/programs_list.html', allPrograms = allPrograms)
+
+# query OneonOnes 
+@app.route('/OneonOne')
+def OneonOne():
+	OneonOneList = modules.Program.query.all()
+	return render_template('user/oneonone_list.html', OneonOneList = OneonOneList)
 
 @app.route('/post_login', methods=['POST'])
 def post_login():
