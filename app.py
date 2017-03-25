@@ -5,9 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.debug = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/raPlus'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/raPlus'
 
 #import modules after init app 
 db = SQLAlchemy(app) 
@@ -89,7 +89,8 @@ def post_program():
 # query programs 
 @app.route('/programs')
 def programs():
-	allPrograms = modules.Program.query.all()
+	# allPrograms = modules.Program.query.all()
+	allPrograms = modules.Program.query.filter(modules.Program.program_name.contains('k'))
 	return render_template('user/programs_list.html', allPrograms = allPrograms)
 
 # query OneonOnes 
