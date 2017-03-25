@@ -1,18 +1,18 @@
 from app import *
 
 # registering users into database
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(80))
+    pw_hash = db.Column(db.String(120))
 
     def __init__(
-        self, 
-        first_name, 
-        last_name, 
-        email, 
+        self,
+        first_name,
+        last_name,
+        email,
         password
     ):
 
@@ -23,6 +23,11 @@ class User(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.email
+    def set_password(self, password):
+        self.pw_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pw_hash, password)
 
  # adding programs
  # change the types later
@@ -45,11 +50,11 @@ class Program(db.Model):
 
 
     def __init__(
-        self, 
-        program_name, 
+        self,
+        program_name,
         program_type,
-        date, 
-        time, 
+        date,
+        time,
         location,
         description,
         primary_sponsor,
@@ -92,10 +97,10 @@ class OneonOne(db.Model):
     notes = db.Column(db.String(1000))
 
     def __init__(
-        self, 
-        resident_first_name, 
-        resident_last_name, 
-        housing, 
+        self,
+        resident_first_name,
+        resident_last_name,
+        housing,
         room_number,
         recommended_resources,
         concerns,
@@ -112,6 +117,3 @@ class OneonOne(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.resident_first_name
-
-
-
