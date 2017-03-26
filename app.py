@@ -2,16 +2,19 @@ from __future__ import print_function
 import os,sys
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
+from werkzeug.security import generate_password_hash,check_password_hash
 
 app = Flask(__name__)
+app.secret_key = "foobarbazz"
 app.debug = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['postgresql://postgres@localhost/raPlus']
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/raPlus'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/raPlus'
 
-#import modules after init app 
-db = SQLAlchemy(app) 
-import modules	
+#import modules after init app
+db = SQLAlchemy(app)
+import modules
 
 @app.route('/')
 def home():
@@ -24,7 +27,7 @@ def signup():
 @app.route('/login')
 def login():
     return render_template('main/login.html')
-	
+
 @app.route('/submit_program')
 def submit():
     return render_template('user/submit_program.html')
@@ -33,19 +36,20 @@ def submit():
 def submit1():
     return render_template('user/submit_1-1.html')
 
-# modules below 
+# modules below
 # post new user
 @app.route('/post_user', methods=['POST'])
 def post_user():
-	user = modules.User(
-		request.form['first_name'],
-		request.form['last_name'],
-		request.form['email'],
-		request.form['password']
-		)
-	db.session.add(user)
-	db.session.commit()
-	return redirect(url_for('home'))
+    user = modules.User(
+        request.form['first_name'],
+        request.form['last_name'],
+        request.form['email'],
+        request.form['password']
+        )
+    user.set_password(user.password)
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 # post one on one
 @app.route('/submit_1-1', methods=['POST'])
@@ -77,7 +81,7 @@ def post_program():
 		request.form['community'],
 		request.form['organizations_involved'],
 		request.form['money_spent'],
-		request.form['description'],		
+		request.form['description'],
 		request.form['implementation'],
 		request.form['improvement'],
 		request.form['assessment']
@@ -86,13 +90,13 @@ def post_program():
 	db.session.commit()
 	return redirect(url_for('home'))
 
-# query programs 
+# query programs
 @app.route('/programs')
 def programs():
 	allPrograms = modules.Program.query.all()
 	return render_template('user/programs_list.html', allPrograms = allPrograms)
 
-# query OneonOnes 
+# query OneonOnes
 @app.route('/OneonOne')
 def OneonOne():
 	OneonOneList = modules.Program.query.all()
@@ -100,16 +104,44 @@ def OneonOne():
 
 @app.route('/post_login', methods=['POST'])
 def post_login():
-	print('getting to verify_login.', file=sys.stderr)
-	form_email = request.form['email']
-	form_pass = request.form['password']
-	check = modules.User.query.filter(modules.User.email==form_email and modules.User.password==form_pass).first()
-	if check is None:
-		print('Invalid username or password.',file=sys.stderr)
-		return redirect(url_for('home'))
-	else:
-		print('Logged in successfully.',file=sys.stderr)
-		return redirect(url_for('home'))
+    form_email = request.form['email']
+    form_pass = request.form['password']
+    user = modules.User.query.filter_by(email=form_email).first()
+    if user is None:
+        print("No user with this email")
+    elif user.check_password(form_pass):
+        print(user.first_name + ' Logged in successfully.',file=sys.stderr)
+        login_user(user)
+    else:
+        print("Invalid password")
+    return redirect(url_for('home'))
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return modules.User.query.get(int(user_id))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return "You have been logged out"
+
+@app.route('/hummus')
+@login_required
+def hummus():
+    return "The current user is" + current_user.last_name
+
+@app.route('/test_log')
+def test_log():
+    x = 'jessehuang@wustl.edu'
+    user = modules.User.query.filter_by(email=x).first()
+    print(user.first_name, file=sys.stderr)
+    login_user(user)
+    return user.last_name + " Was logged in"
+
 
 if __name__ == '__main__':
     app.run()
