@@ -34,10 +34,10 @@ class Program(db.Model):
     time = db.Column(db.String(10))
     location = db.Column(db.String(80))
     description = db.Column(db.String(500))
-    primary_sponsor = db.Column(db.String(30))
-    secondary_sponsor = db.Column(db.String(30))
-    organizations_involved = db.Column(db.String(30))
-    community = db.Column(db.String(30))
+    primary_sponsor = db.Column(db.String(50))
+    secondary_sponsor = db.Column(db.String(50))
+    organizations_involved = db.Column(db.String(50))
+    community = db.Column(db.String(50))
     money_spent = db.Column(db.String(30))
     implementation = db.Column(db.String(500))
     improvement = db.Column(db.String(500))
@@ -81,7 +81,7 @@ class Program(db.Model):
         return '<Program Name %r>' % self.program_name
 
 # resident 1:1
-class OneonOne(db.Model):
+class one_on_one(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     resident_first_name = db.Column(db.String(80))
     resident_last_name = db.Column(db.String(80))
@@ -113,5 +113,99 @@ class OneonOne(db.Model):
     def __repr__(self):
         return '<Name %r>' % self.resident_first_name
 
+# ra directory
+class ra_directory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    staff_first_name = db.Column(db.String(80))
+    staff_last_name = db.Column(db.String(80))
+    room_number = db.Column(db.String(80))
+    residential_community = db.Column(db.String(50))
+    residential_building = db.Column(db.String(50))
+    cell_phone = db.Column(db.String(15))
+    home_location = db.Column(db.String(40))
+    birth_date = db.Column(db.String(20))
+    school = db.Column(db.String(40))
+    status = db.Column(db.String(20))
+    email = db.Column(db.String(100))
+    profile_image = db.Column(db.String(70))
 
+    def __init__(
+        self, 
+        staff_first_name, 
+        staff_last_name, 
+        room_number, 
+        residential_community,
+        residential_building,
+        cell_phone,
+        home_location,
+        birth_date,
+        school,
+        status,
+        email,
+        profile_image
+    ):
+
+        self.staff_first_name = staff_first_name
+        self.staff_last_name = staff_last_name
+        self.room_number = room_number
+        self.residential_community = residential_community
+        self.residential_building = residential_building
+        self.cell_phone = cell_phone
+        self.home_location = home_location
+        self.birth_date = birth_date
+        self.school = school
+        self.status = status
+        self.email = email
+        self.profile_image = profile_image
+
+    def __repr__(self):
+        return '<Name %r>' % self.staff_first_name
+
+# resident directory
+class resident_directory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    resident_first_name = db.Column(db.String(80))
+    resident_last_name = db.Column(db.String(80))
+    room_number = db.Column(db.String(80))
+    residential_building = db.Column(db.String(50))
+    sub_free = db.Column(db.String(5))
+    cell_phone = db.Column(db.String(15))
+    home_location = db.Column(db.String(40))
+    birth_date = db.Column(db.String(20))
+    school = db.Column(db.String(40))
+    status = db.Column(db.String(20))
+    email = db.Column(db.String(100))
+    profile_image = db.Column(db.String(70))
+
+    def __init__(
+        self, 
+        resident_first_name, 
+        resident_last_name, 
+        room_number, 
+        residential_building,
+        sub_free,
+        cell_phone,
+        home_location,
+        birth_date,
+        school,
+        status,
+        email,
+        profile_image
+    ):
+
+        self.resident_first_name = resident_first_name
+        self.resident_last_name = resident_last_name
+        self.room_number = room_number
+        self.residential_building = residential_building
+        self.sub_free = sub_free
+        self.cell_phone = cell_phone
+        self.home_location = home_location
+        self.birth_date = birth_date
+        self.school = school
+        self.status = status
+        self.email = email
+        self.profile_image = profile_image
+
+    def __repr__(self):
+        return '<Name %r>' % self.staff_first_name
 

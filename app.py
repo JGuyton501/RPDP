@@ -50,7 +50,7 @@ def post_user():
 # post one on one
 @app.route('/submit_1-1', methods=['POST'])
 def post_1():
-	resident1 = modules.OneonOne(
+	resident1 = modules.one_on_one(
 		request.form['resident_first_name'],
 		request.form['resident_last_name'],
 		request.form['housing'],
@@ -90,15 +90,23 @@ def post_program():
 @app.route('/programs')
 def programs():
 	# allPrograms = modules.Program.query.all()
-	allPrograms = modules.Program.query.filter(modules.Program.program_name.contains('k'))
+	allPrograms = modules.Program.query.filter(modules.Program.program_name.contains('t'))
 	return render_template('user/programs_list.html', allPrograms = allPrograms)
 
 # query OneonOnes 
 @app.route('/OneonOne')
 def OneonOne():
-	OneonOneList = modules.Program.query.all()
+	OneonOneList = modules.one_on_one.query.all()
 	return render_template('user/oneonone_list.html', OneonOneList = OneonOneList)
 
+# query ra directory 
+@app.route('/ra-directory')
+def ra_directory():
+	allRA = modules.ra_directory.query.all()
+	return render_template('user/ra_directory.html', allRA = allRA)
+
+
+# login
 @app.route('/post_login', methods=['POST'])
 def post_login():
 	print('getting to verify_login.', file=sys.stderr)
