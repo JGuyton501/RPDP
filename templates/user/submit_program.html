@@ -8,19 +8,7 @@
     {% include 'main/navbar.html' %}
 
     <style>
-      .tabs .tab a.active {
-        color: royalblue;
-      }
-      .tabs .tab a:hover {
-        color: royalblue;
-      }
-      .tabs .tab a {
-        color: royalblue;
-      }
-      .tabs .indicator {
-        color: royalblue;
-      }
-      select, select option {
+      .tabs .tab a.active, .tabs .tab a, .tabs .indicator, select, select option {
         color: royalblue;
       }
     </style>
@@ -106,6 +94,7 @@
                     <label for="student_type">Students Involved</label>
                 </div> -->
             </div>
+            <!-- <a href="#program-swipe-2" id="swipe-1-next-button" class="btn-large waves-effect waves-light  blue darken-3">Next</a> -->
           </div>
         <div id="program-swipe-2" class="col s12">
             <h4>Sponsors and Budget</h4>
@@ -133,6 +122,7 @@
                     <label for="secondary_sponsor">Secondary Sponsor</label>
                 </div>
             </div>
+            <!-- <a href="#program-swipe-3" id="swipe-2-next-button" class="btn-large waves-effect waves-light  blue darken-3">Next</a> -->
         </div>
         <div id="program-swipe-3" class="col s12">
             <h4>Description</h4>
@@ -143,6 +133,7 @@
                     <label for="description">Description</label>
                 </div>
             </div>
+            <!-- <a href="#program-swipe-4" id="swipe-3-next-button" class="btn-large waves-effect waves-light  blue darken-3">Next</a> -->
         </div>
         <div id="program-swipe-4" class="col s12">
             <h4>Assessment and Submit</h4>
@@ -167,8 +158,8 @@
                     <label for="assessment">How was the program assessed?</label>
                 </div>
             </div>
-            <input type="submit" name="submit" class="btn waves-effect waves-green btn" />
-            <button class="btn waves-effect waves-red" type="reset" name="/submit">Reset</button>
+            <input type="submit" name="submit" class="btn waves-effect waves-green blue darken-3" />
+            <button class="btn waves-effect waves-red blue darken-3" type="reset" name="/submit">Reset</button>
         </div>
     </form>
   </div>
