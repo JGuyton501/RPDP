@@ -2,20 +2,23 @@
 <html>
 
 <head>
+    <html lang="en">
     <title></title>
     <link rel="stylesheet" href="../../static/css/programs.css">
     {% include 'main/link.html' %}
 
     <title>Login</title>
-    {% include 'main/navbar.html' %}
+    {% include 'main/nav.html' %}
 </head>
 
 <body>
     <div class="container">
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
+        <div class="row">
+            <div class="input-field">
+              <input id="program_search" type="search" required>
+              <label class="label-icon" for="program_search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
         </div>
 
         <div class="show-more">
@@ -116,10 +119,10 @@
                     <td>{{program.date}}</td>
                     <td>{{program.location}}</td>
                     <td>{{program.program_type}}</td>
-                    <td><a href="#{{program.program_name}}_details">More Details</a></td>
+                    <td><a href="#{{program.id}}_details">More Details</a></td>
                   </tr>
 
-                  <div id="{{program.program_name}}_details" class="modal" style="width: 75%">
+                  <div id="{{program.id}}_details" class="modal" style="width: 75%">
                     <div class="modal-content">
                       <div class="row">
                         <div class="col s12">
@@ -309,9 +312,11 @@
         });
     });
 
-    
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
 </script>
-<!-- {% include 'main/footer.html' %}
- -->
+
 
 </html>

@@ -17,16 +17,24 @@ db = SQLAlchemy(app)
 import modules
 
 @app.route('/')
-def home():
-    return render_template('main/home.html')
+def login():
+    return render_template('main/login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('user/dashboard.html')
+
+@app.route('/features')
+def features():
+    return render_template('main/features.html')
 
 @app.route('/signup')
 def signup():
     return render_template('main/signup.html')
 
-@app.route('/login')
-def login():
-    return render_template('main/login.html')
+# @app.route('/login')
+# def login():
+#     return render_template('main/login.html')
 
 @app.route('/submit_program')
 def submit():
@@ -35,6 +43,11 @@ def submit():
 @app.route('/submit_1-1')
 def submit1():
     return render_template('user/submit_1-1.html')
+
+@app.route('/calendar')
+def calendar():
+    return render_template('user/calendar.html')
+
 
 # modules below
 # post new user
@@ -54,53 +67,60 @@ def post_user():
 # post one on one
 @app.route('/submit_1-1', methods=['POST'])
 def post_1():
-	resident1 = modules.OneonOne(
-		request.form['resident_first_name'],
-		request.form['resident_last_name'],
-		request.form['housing'],
-		request.form['room_number'],
-		request.form['recommended_resources'],
-		request.form['concerns'],
-		request.form['notes']
-		)
-	db.session.add(resident1)
-	db.session.commit()
-	return redirect(url_for('home'))
+    resident1 = modules.OneonOne(
+        request.form['resident_first_name'],
+        request.form['resident_last_name'],
+        request.form['housing'],
+        request.form['room_number'],
+        request.form['recommended_resources'],
+        request.form['concerns'],
+        request.form['notes']
+        )
+    db.session.add(resident1)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 # post new program
 @app.route('/post_program', methods=['POST'])
 def post_program():
-	program = modules.Program(
-		request.form['program_name'],
-		request.form['program_type'],
-		request.form['date'],
-		request.form['time'],
-		request.form['location'],
-		request.form['primary_sponsor'],
-		request.form['secondary_sponsor'],
-		request.form['community'],
-		request.form['organizations_involved'],
-		request.form['money_spent'],
-		request.form['description'],
-		request.form['implementation'],
-		request.form['improvement'],
-		request.form['assessment']
-		)
-	db.session.add(program)
-	db.session.commit()
-	return redirect(url_for('home'))
+    program = modules.Program(
+        request.form['program_name'],
+        request.form['program_type'],
+        request.form['date'],
+        request.form['time'],
+        request.form['location'],
+        request.form['primary_sponsor'],
+        request.form['secondary_sponsor'],
+        request.form['community'],
+        request.form['organizations_involved'],
+        request.form['money_spent'],
+        request.form['description'],
+        request.form['implementation'],
+        request.form['improvement'],
+        request.form['assessment']
+        )
+    db.session.add(program)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 # query programs
 @app.route('/programs')
 def programs():
-	allPrograms = modules.Program.query.all()
-	return render_template('user/programs_list.html', allPrograms = allPrograms)
+    allPrograms = modules.Program.query.all()
+    return render_template('user/programs_list.html', allPrograms = allPrograms)
 
 # query OneonOnes
 @app.route('/OneonOne')
 def OneonOne():
-	OneonOneList = modules.Program.query.all()
-	return render_template('user/oneonone_list.html', OneonOneList = OneonOneList)
+    OneonOneList = modules.Program.query.all()
+    return render_template('user/oneonone_list.html', OneonOneList = OneonOneList)
+
+# query ra directory 
+@app.route('/ra-directory')
+def ra_directory():
+    allRA = modules.ra_directory.query.all()
+    return render_template('user/ra_directory.html', allRA = allRA)
+
 
 @app.route('/post_login', methods=['POST'])
 def post_login():
