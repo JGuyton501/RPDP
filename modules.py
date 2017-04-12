@@ -9,20 +9,23 @@ class User(db.Model):
     password = db.Column(db.String(80))
 
     def __init__(
-        self, 
-        first_name, 
-        last_name, 
-        email, 
+        self,
+        first_name,
+        last_name,
+        email,
         password
+
     ):
 
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
+        #UserMixin.__init__(self,roles)
 
     def __repr__(self):
         return '<Name %r>' % self.email
+
 
  # adding programs
  # change the types later
@@ -45,11 +48,11 @@ class Program(db.Model):
 
 
     def __init__(
-        self, 
-        program_name, 
+        self,
+        program_name,
         program_type,
-        date, 
-        time, 
+        date,
+        time,
         location,
         description,
         primary_sponsor,
@@ -92,10 +95,10 @@ class one_on_one(db.Model):
     notes = db.Column(db.String(1000))
 
     def __init__(
-        self, 
-        resident_first_name, 
-        resident_last_name, 
-        housing, 
+        self,
+        resident_first_name,
+        resident_last_name,
+        housing,
         room_number,
         recommended_resources,
         concerns,
@@ -130,10 +133,10 @@ class ra_directory(db.Model):
     profile_image = db.Column(db.String(70))
 
     def __init__(
-        self, 
-        staff_first_name, 
-        staff_last_name, 
-        room_number, 
+        self,
+        staff_first_name,
+        staff_last_name,
+        room_number,
         residential_community,
         residential_building,
         cell_phone,
@@ -178,10 +181,10 @@ class resident_directory(db.Model):
     profile_image = db.Column(db.String(70))
 
     def __init__(
-        self, 
-        resident_first_name, 
-        resident_last_name, 
-        room_number, 
+        self,
+        resident_first_name,
+        resident_last_name,
+        room_number,
         residential_building,
         sub_free,
         cell_phone,
@@ -208,4 +211,3 @@ class resident_directory(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.staff_first_name
-

@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask.ext.permissions.core import Permissions
 
 app = Flask(__name__)
 app.secret_key = "foobarbazz"
@@ -115,7 +116,7 @@ def OneonOne():
     OneonOneList = modules.Program.query.all()
     return render_template('user/oneonone_list.html', OneonOneList = OneonOneList)
 
-# query ra directory 
+# query ra directory
 @app.route('/ra-directory')
 def ra_directory():
     allRA = modules.ra_directory.query.all()
@@ -162,6 +163,8 @@ def test_log():
     login_user(user)
     return user.last_name + " Was logged in"
 
+perms = Permissions(app,db,current_user)
+from flask_permissions.models import UserMixin
 
 if __name__ == '__main__':
     app.run()
