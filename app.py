@@ -197,7 +197,7 @@ def logout():
 @app.route('/hummus')
 @login_required
 def hummus():
-    return "The current user is" + current_user.last_name
+    return "The current user is " + current_user.last_name
 
 @app.route('/test_log')
 def test_log():
