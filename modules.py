@@ -7,13 +7,14 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True)
     pw_hash = db.Column(db.String(80))
-
+    position = db.Column(db.String(80))
     def __init__(
         self,
         first_name,
         last_name,
         email,
-        password
+        password,
+        position
 
     ):
 
@@ -21,16 +22,15 @@ class User(db.Model, UserMixin):
         self.last_name = last_name
         self.email = email
         self.password = password
-        #UserMixin.__init__(self,roles)
+        self.position = position
+        UserMixin.__init__(self,roles)
 
     def __repr__(self):
         return '<Name %r>' % self.email
     def set_password(self, password):
         self.pw_hash = generate_password_hash(password)
-
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
-
 
  # adding programs
  # change the types later

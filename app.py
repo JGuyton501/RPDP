@@ -1,10 +1,11 @@
 from __future__ import print_function
 import os,sys
-from flask import Flask, render_template, request, url_for, redirect, Response
+from flask import Flask, render_template, request, url_for, redirect, Response, current_app, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask.ext.principal import Principal, Permission, RoleNeed
+from flask.ext.principal import Principal, Permission, RoleNeed,UserNeed
+from flask.ext.principal import Identity, identity_changed, identity_loaded, AnonymousIdentity
 
 app = Flask(__name__)
 app.secret_key = "foobarbazz"
@@ -19,7 +20,27 @@ import modules
 
 Principal(app)
 ra_privilege = Permission(RoleNeed('ra'))
-rcd_privilege = Permission(RoleNeed('ra'),RoleNeed('rcd'))
+rcd_privilege = Permission(RoleNeed('rcd'))
+@identity_loaded.connect_via(app)
+def on_identity_loaded(sender, identity):
+    # Set the identity user object
+    identity.user = current_user
+    # Add the UserNeed to the identity
+    if hasattr(current_user, 'id'):
+        identity.provides.add(UserNeed(current_user.id))
+    # Assuming the User model has a list of roles, update the
+    # identity with the roles that the user provides
+    if current_user.is_authenticated:
+        if current_user.position == 'ra':
+            identity.provides.add(RoleNeed('ra'))
+            print("Current user is an RA", file=sys.stderr)
+        elif current_user.position == 'rcd':
+            identity.provides.add(RoleNeed('ra'))
+            identity.provides.add(RoleNeed('rcd'))
+            print("Current user is an RCD", file=sys.stderr)
+        else:
+            print("Current user neither RA nor RCD", file=sys.stderr)
+
 
 @app.route('/')
 def login():
@@ -27,7 +48,7 @@ def login():
 
 @app.route('/home')
 def redirect_to_login():
-    return render_template('main/login.html')
+    return redirect(request.args.get('next') or '/')
 
 
 @app.route('/dashboard')
@@ -68,7 +89,8 @@ def new_user():
         request.form['first_name'],
         request.form['last_name'],
         request.form['email'],
-        request.form['password']
+        request.form['password'],
+        request.form['position']
         )
 
     user.set_password(user.password)
@@ -76,7 +98,7 @@ def new_user():
     db.session.commit()
     print(request.form['position'], file=sys.stderr)
     print("Trying to print position", file=sys.stderr)
-    return render_template('main/login.html')
+    return redirect(request.args.get('next') or '/')
 
 # post one on one
 @app.route('/submit_1-1', methods=['POST'])
@@ -185,6 +207,17 @@ def test_log():
     login_user(user)
     return user.last_name + " Was logged in"
 
+@app.route('/rcd_only')
+@login_required
+@rcd_privilege.require()
+def rcd_only():
+    return "For RCD only"
+
+@app.route('/rcd_or_ra')
+@login_required
+@ra_privilege.require()
+def rcd_or_ra():
+    return "Either RCD or RA can access this page"
 
 if __name__ == '__main__':
     app.run()
