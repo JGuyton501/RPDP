@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, url_for, redirect, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask.ext.principal import Identity, identity_changed, identity_loaded, Principal, Permission, RoleNeed
+from flask.ext.principal import Principal, Permission, RoleNeed
 
 app = Flask(__name__)
 app.secret_key = "foobarbazz"
@@ -16,6 +16,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/raPlus'
 #import modules after init app
 db = SQLAlchemy(app)
 import modules
+
+Principal(app)
+ra_privilege = Permission(RoleNeed('ra'))
+rcd_privilege = Permission(RoleNeed('ra'),RoleNeed('rcd'))
 
 @app.route('/')
 def login():
@@ -58,18 +62,21 @@ def calendar():
 
 # modules below
 # post new user
-@app.route('/post_user', methods=['POST'])
-def post_user():
+@app.route('/new_user', methods=['POST'])
+def new_user():
     user = modules.User(
         request.form['first_name'],
         request.form['last_name'],
         request.form['email'],
         request.form['password']
         )
+
     user.set_password(user.password)
     db.session.add(user)
     db.session.commit()
-    return redirect(url_for('home'))
+    print(request.form['position'], file=sys.stderr)
+    print("Trying to print position", file=sys.stderr)
+    return render_template('main/login.html')
 
 # post one on one
 @app.route('/submit_1-1', methods=['POST'])
@@ -139,6 +146,7 @@ def post_login():
     elif user.check_password(form_pass):
         print(user.first_name + ' Logged in successfully.',file=sys.stderr)
         login_user(user)
+        identity_changed.send(current_app._get_current_object(),identity=Identity(user.id))
         return redirect(url_for('dashboard'))
     else:
         print("Invalid password")
@@ -156,7 +164,13 @@ def load_user(user_id):
 @login_required
 def logout():
     logout_user()
-    return "You have been logged out"
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
+
+    # Tell Flask-Principal the user is anonymous
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
+    print("You have been logged out ", file=sys.stderr)
+    return redirect(request.args.get('next') or '/')
 
 @app.route('/hummus')
 @login_required
