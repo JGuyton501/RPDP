@@ -1,12 +1,12 @@
 from app import *
 
 # registering users into database
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(80))
+    pw_hash = db.Column(db.String(80))
 
     def __init__(
         self,
@@ -25,6 +25,11 @@ class User(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.email
+    def set_password(self, password):
+        self.pw_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pw_hash, password)
 
 
  # adding programs

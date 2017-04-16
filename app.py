@@ -1,10 +1,10 @@
 from __future__ import print_function
 import os,sys
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask.ext.permissions.core import Permissions
+from flask.ext.principal import Identity, identity_changed, identity_loaded, Principal, Permission, RoleNeed
 
 app = Flask(__name__)
 app.secret_key = "foobarbazz"
@@ -21,7 +21,13 @@ import modules
 def login():
     return render_template('main/login.html')
 
+@app.route('/home')
+def redirect_to_login():
+    return render_template('main/login.html')
+
+
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('user/dashboard.html')
 
@@ -133,9 +139,11 @@ def post_login():
     elif user.check_password(form_pass):
         print(user.first_name + ' Logged in successfully.',file=sys.stderr)
         login_user(user)
+        return redirect(url_for('dashboard'))
     else:
         print("Invalid password")
-    return redirect(url_for('home'))
+    #return redirect(url_for('home'))
+    return render_template('main/login.html')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -163,8 +171,6 @@ def test_log():
     login_user(user)
     return user.last_name + " Was logged in"
 
-perms = Permissions(app,db,current_user)
-from flask_permissions.models import UserMixin
 
 if __name__ == '__main__':
     app.run()
